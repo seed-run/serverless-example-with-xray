@@ -1,0 +1,32 @@
+service: serverless-example-with-xray
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+
+  tracing:
+    apiGateway: true
+    lambda: true
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - logs:*
+        - sns:*
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: "*"
+
+functions:
+  main:
+    handler: handler.main
+    events:
+      - http:
+          path: /
+          method: get
+
