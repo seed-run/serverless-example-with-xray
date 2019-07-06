@@ -1,1 +1,1 @@
-# serverless-template-mono-repo
+# serverless-example-with-xray
